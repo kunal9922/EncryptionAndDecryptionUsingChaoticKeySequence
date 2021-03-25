@@ -4,7 +4,7 @@ import numpy as np
 
 
 class ChaoticCrypto:
-    ''' encrypt and decrypt image by using Logistic Map(pseudo Random)'''
+    ''' encrypt and decrypt image by using Chaos Logistic Map(pseudo Random)'''
 
     def ecrypt_img(self, path: str):
         # reading an image
@@ -21,7 +21,6 @@ class ChaoticCrypto:
 
 
 if __name__ == "__main__":
-    print("hello")
 
     imgSecure = ChaoticCrypto()
-    imgSecure.ecrypt_img('steve-jobs.jpg')
+    imgSecure.ecrypt_img('dataSet/steve-jobs.jpg')
