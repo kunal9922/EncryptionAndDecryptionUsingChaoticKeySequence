@@ -8,5 +8,5 @@ The basic principle of encryption with chaos is based on the ability of some dyn
 Every pixel of and image get key for encryption that's why this algo is so strong for CryptoGraphy.
 
 ## full pipeline of encryption and decryption
-![](Example-of-an-embedded-encryption-scheme-real-time-image-encryption-based-a-chaotic-key)
+![](Example-of-an-embedded-encryption-scheme-real-time-image-encryption-based-a-chaotic-key.png)
 
