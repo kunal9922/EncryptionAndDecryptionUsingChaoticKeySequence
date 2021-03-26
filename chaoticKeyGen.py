@@ -3,18 +3,19 @@ class KeyGen:
     systems to produce of numbers that are random in nature and use as a keys for \n
     encrypt and decrypt every pixel of an image '''
 
-    def logisticMapKeyGen(initCondition, controlParameter, NoOfKeys) -> list:
+    def logisticMapKeyGen(self, initCondition, controlParameter, NoOfKeys) -> list:
 
-    key = []  # list for storing the no. of keys for ecryption
+        key = []  # list for storing the no. of keys for ecryption
 
-    for count in range(NoOfKeys):
-        # .`. x = initialCondition , r = controlParameter
-        # x = r * x * (1-x) logistic map
-        # logistic map for key geniration
-        initCondition = controlParameter * initCondition*(1 - initCondition)
+        for count in range(NoOfKeys):
+            # .`. x = initialCondition , r = controlParameter
+            # x = r * x * (1-x) logistic map
+            # logistic map for key geniration
+            initCondition = controlParameter * \
+                initCondition*(1 - initCondition)
 
-        # this is a key for for encryption as well decryption
-        # taking mod 256 because  is for 8bit image
-        key.append(int((initCondition*pow(10, 16)) % 256))
+            # this is a key for for encryption as well decryption
+            # taking mod 256 because  is for 8bit image
+            key.append(int((initCondition*pow(10, 16)) % 256))
 
-    return key
+        return key
