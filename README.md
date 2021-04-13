@@ -20,7 +20,7 @@ It is calculated by looping the folowing equation, for a number of iterations, a
 
 Then the results are plotted with each `r` on the x-axis, and `x` on the y-axis, resulting in the following diagram.
 
-![](/Users/kunalsoni/Codes/pyCodes/ChaoticCrypto/dataSet/bifucationPlot.png)
+![](./dataSet/bifucationPlot.png)
 
 * Minimum_r = 3.0
 * Maximum_r = 4.0
