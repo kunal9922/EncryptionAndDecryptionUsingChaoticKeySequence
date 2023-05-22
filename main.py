@@ -1,5 +1,3 @@
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 import numpy as np
 from chaoticKeyGen import KeyGen
 import cv2
@@ -12,16 +10,12 @@ class ChaoticCrypto:
         ''' encrypt an image by using Chaostic key Sequence and keys complexity is based on \n
         your passing initialCondition and controlParameter '''
         # reading an image
-        img = mpimg.imread(pathImg)
+        img = cv2.imread(pathImg)
 
-        plt.imshow(img)
-        plt.show()
-
-        # take the image width and height
-        height = img.shape[0]
-        width = img.shape[1]
-
+        # Get the image dimensions
+        height, width, ch = img.shape
         noOfPixels = width * height
+
         keys = KeyGen()
         keysList = keys.logisticMapKeyGen(initCond, controlPara, noOfPixels)
 
@@ -31,25 +25,24 @@ class ChaoticCrypto:
 
         for y in range(height):
             for x in range(width):
-                enImg[y, x] = img[y, x] ^ keysList[z]
+                for chnl in range(ch):
+                    enImg[y, x, chnl] = img[y, x, chnl] ^ keysList[z]
                 z += 1
 
-        plt.imshow(enImg)
-        plt.show()
-        plt.imsave('dataSet/Encrypted_steve-jobs.jpg', enImg)
-
+        return enImg
+        
     def decrypt_img(self, initCond, controlPara, pathImg: str):
         ''' decryption an image by using Chaostic key Sequence and keys complexity is based on \n
         your passing initialCondition and controlParameter Note what aguments were passed to encryption is always same for decryption \n
         other wise decryption never will possible '''
         # reading an image
-        enimg = mpimg.imread(pathImg)
+        enimg = cv2.imread(pathImg)
 
         # take the image width and height
-        height = enimg.shape[0]
-        width = enimg.shape[1]
-
+         # Get the image dimensions
+        height, width, ch = enimg.shape
         noOfPixels = width * height
+
         keys = KeyGen()
         keysList = keys.logisticMapKeyGen(initCond, controlPara, noOfPixels)
 
@@ -59,17 +52,22 @@ class ChaoticCrypto:
 
         for y in range(height):
             for x in range(width):
-                decImg[y, x] = enimg[y, x] ^ keysList[z]
+                for chnl in range(ch):
+                    decImg[y, x, chnl] = enimg[y, x, chnl] ^ keysList[z]
                 z += 1
 
-        plt.imshow(decImg)
-        plt.show()
-        plt.imsave('dataSet/Decrypted_steve-jobs.jpg', decImg)
+        return decImg
+        
 
 
 if __name__ == "__main__":
 
     imgSecure = ChaoticCrypto()
-    imgSecure.ecrypt_img(0.01, 3.95, 'dataSet/steve-jobs.jpg')
-    imgSecure.decrypt_img(
-        0.01, 3.95, 'dataSet/Encrypted_steve-jobs.jpg')
+    #Encryption of Image
+    encImage = imgSecure.ecrypt_img(0.01, 3.95, 'dataSet/steve-jobs.jpg')
+    cv2.imwrite('dataSet/Encrypted_steve-jobs.jpg', encImage)
+
+    # Decryption on Image 
+    decrImage = imgSecure.decrypt_img(
+       0.01, 3.95, 'dataSet/Encrypted_steve-jobs.jpg')
+    cv2.imwrite('dataSet/Decrypted_steve-jobs.jpg', decrImage)
