@@ -72,14 +72,49 @@ def index():
 #Encryption 
 @app.route("/encrypt", methods=["POST"])
 def encrypt():
-    pass
+    initCond = float(request.json["initCond"])
+    controlPara = float(request.json["controlPara"])
+    imgData = base64.b64decode(request.json["image"])
+
+    nparr = np.frombuffer(imgData, np.uint8)
+    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+    imgSecure = ChaoticCrypto()
+    encryptedImageBase64 = imgSecure.encrypt_img(initCond, controlPara, img)
+
+    #saving the encrypted image 
+    encrypted_image_path = r"./static/images/encrypted.jpg"
+    # Convert Base64 to NumPy array
+    image_data = base64.b64decode(encryptedImageBase64)
+    image_np = np.frombuffer(image_data, np.uint8)
+    image = cv2.imdecode(image_np, cv2.IMREAD_COLOR)
+     # Save the encrypted image
+    cv2.imwrite(encrypted_image_path, image)
+
+
+    return jsonify({"encryptedImage": encryptedImageBase64})
+
 
 #Decryption
 @app.route("/decrypt", methods=["POST"])
 def decrypt():
-    pass 
+    initCond = float(request.json["initCond"])
+    controlPara = float(request.json["controlPara"])
+    encryptedImageData = base64.b64decode(request.json["encryptedImage"])
 
+    nparr = np.frombuffer(encryptedImageData, np.uint8)
+    enimg = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
+    imgSecure = ChaoticCrypto()
+    decryptedImageBase64 = imgSecure.decrypt_img(initCond, controlPara, enimg)
+
+    #saving the encrypted image 
+    decrypted_image_path = r"./static/images/decrypted.jpg"
+    
+     # Save the encrypted image
+    cv2.imwrite(decrypted_image_path, np.array(decryptedImageBase64))
+
+    return jsonify({"decryptedImage": decryptedImageBase64})
 
 #main 
 if __name__ == "__main__":
