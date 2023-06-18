@@ -1,7 +1,7 @@
 # Encryption And Decryption Using ChaoticKeySequence
-python based repo for Encryption and Decryption using advance crypto technic called Chaotic Key Sequence
+The encryption and decryption project using chaotic key sequences aims to create a secure and robust cryptographic system by leveraging chaos theory. This method of encryption relies on dynamic systems that can generate sequences of numbers with a random-like nature. These numbers are then utilized as keys to modify the pixel values of an image. The implementation of this project involves the use of web technologies.
 
-The basic principle of encryption with chaos is based on the ability of some dynamic systems to produce sequence of numbers that are random in nature. This sequence is used to encrypt messages. For decryption, the sequence of random numbers is highly dependent on the initial condition used for generating this sequence. A very minute deviation in the initial condition will result in a totally different sequence. This sensitivity to initial condition makes chaotic systems ideal for encryption.
+The basic principle of encryption with chaos is based on the ability of some dynamic systems to produce sequence of numbers that are random in nature. This sequence is used to encrypt an image. For decryption, the sequence of random numbers is highly dependent on the initial condition used for generating this sequence. A very minute deviation in the initial condition will result in a totally different sequence. This sensitivity to initial condition makes chaotic systems ideal for encryption.
 
 ## simply explain process of core key generation of ecryption and decryption
 ![](dataSet/A-Chaotic-encryption-Scheme.png)
