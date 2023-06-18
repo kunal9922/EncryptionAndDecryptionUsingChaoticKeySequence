@@ -30,6 +30,11 @@ class ChaoticCrypto:
                     enImg[y, x, chnl] = img[y, x, chnl] ^ keysList[z]
                 z += 1
 
+        #saving the encrypted image 
+        encrypted_image_path = r"./static/images/encrypted.jpg"
+        # Save the encrypted image
+        cv2.imwrite(encrypted_image_path, enImg)
+
         # Convert encrypted image to base64 for sending as JSON
         _, encImageBuffer = cv2.imencode(".jpg", enImg)
         encImageBase64 = base64.b64encode(encImageBuffer).decode("utf-8")
@@ -57,7 +62,11 @@ class ChaoticCrypto:
                 for chnl in range(ch):
                     decImg[y, x, chnl] = enimg[y, x, chnl] ^ keysList[z]
                 z += 1
-
+        #saving the encrypted image 
+        decrypted_image_path = r"./static/images/decrypted.jpg"
+        # Save the encrypted image
+        cv2.imwrite(decrypted_image_path, decImg)
+        
         # Convert decrypted image to base64 for sending as JSON
         _, decImageBuffer = cv2.imencode(".jpg", decImg)
         decImageBase64 = base64.b64encode(decImageBuffer).decode("utf-8")
@@ -93,14 +102,6 @@ def encrypt():
     imgSecure = ChaoticCrypto()
     encryptedImageBase64 = imgSecure.encrypt_img(initCond, controlPara, img)
 
-    #saving the encrypted image 
-    encrypted_image_path = r"./static/images/encrypted.jpg"
-    # Convert Base64 to NumPy array
-    image_data = base64.b64decode(encryptedImageBase64)
-    image_np = np.frombuffer(image_data, np.uint8)
-    image = cv2.imdecode(image_np, cv2.IMREAD_COLOR)
-     # Save the encrypted image
-    cv2.imwrite(encrypted_image_path, image)
 
     # Return the encrypted image in Base64 format as a JSON response
     return jsonify({"encryptedImage": encryptedImageBase64})
@@ -130,11 +131,6 @@ def decrypt():
     imgSecure = ChaoticCrypto()
     decryptedImageBase64 = imgSecure.decrypt_img(initCond, controlPara, enimg)
 
-    #saving the encrypted image 
-    decrypted_image_path = r"./static/images/decrypted.jpg"
-    
-     # Save the encrypted image
-    cv2.imwrite(decrypted_image_path, np.array(decryptedImageBase64))
     # Return the decrypted image in Base64 format as a JSON response
     return jsonify({"decryptedImage": decryptedImageBase64})
 

@@ -7,7 +7,12 @@ class KeyGen:
 
         key = []  # list for storing the no. of keys for ecryption
 
-        for count in range(NoOfKeys):
+        for _ in range(NoOfKeys):
+            if not isinstance(initCondition, (int, float)):
+                raise ValueError("Invalid initial condition")
+            if not isinstance(controlParameter, (int, float)):
+                raise ValueError("Invalid control parameter")
+
             # .`. x = initialCondition , r = controlParameter
             # x = r * x * (1-x) logistic map
             # logistic map for key geniration
