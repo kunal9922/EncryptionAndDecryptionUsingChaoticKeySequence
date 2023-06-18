@@ -72,6 +72,17 @@ def index():
 #Encryption 
 @app.route("/encrypt", methods=["POST"])
 def encrypt():
+    """
+    Endpoint for encrypting an image using the ChaoticCrypto algorithm.
+    
+    Request JSON Parameters:
+    - initCond: Initial condition for the encryption algorithm (float)
+    - controlPara: Control parameter for the encryption algorithm (float)
+    - image: Base64-encoded image data (string)
+    
+    Returns:
+    - JSON response containing the encrypted image in Base64 format
+    """
     initCond = float(request.json["initCond"])
     controlPara = float(request.json["controlPara"])
     imgData = base64.b64decode(request.json["image"])
@@ -91,13 +102,24 @@ def encrypt():
      # Save the encrypted image
     cv2.imwrite(encrypted_image_path, image)
 
-
+    # Return the encrypted image in Base64 format as a JSON response
     return jsonify({"encryptedImage": encryptedImageBase64})
 
 
 #Decryption
 @app.route("/decrypt", methods=["POST"])
 def decrypt():
+    """
+    Endpoint for decrypting an encrypted image using the ChaoticCrypto algorithm.
+    
+    Request JSON Parameters:
+    - initCond: Initial condition for the decryption algorithm (float)
+    - controlPara: Control parameter for the decryption algorithm (float)
+    - encryptedImage: Base64-encoded encrypted image data (string)
+    
+    Returns:
+    - JSON response containing the decrypted image in Base64 format
+    """
     initCond = float(request.json["initCond"])
     controlPara = float(request.json["controlPara"])
     encryptedImageData = base64.b64decode(request.json["encryptedImage"])
@@ -113,9 +135,9 @@ def decrypt():
     
      # Save the encrypted image
     cv2.imwrite(decrypted_image_path, np.array(decryptedImageBase64))
-
+    # Return the decrypted image in Base64 format as a JSON response
     return jsonify({"decryptedImage": decryptedImageBase64})
 
 #main 
 if __name__ == "__main__":
-    pass 
+    app.run(debug=True) 

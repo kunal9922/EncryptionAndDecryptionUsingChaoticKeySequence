@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+  /*This JavaScript code enables the encryption and decryption of 
+  images using the provided forms and communicates with the corresponding 
+  Flask endpoints on the server side. */
     const encryptForm = document.getElementById("encryptForm");
     encryptForm.addEventListener("submit", function (event) {
       event.preventDefault();
