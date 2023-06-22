@@ -11,14 +11,14 @@ Every pixel of and image get key for encryption that's why this algo is so stron
 ![](dataSet/Example-of-an-embedded-encryption-scheme-real-time-image-encryption-based-a-chaotic-key.png)
 
 # Run the project 
-First of all install python dependencise 
-$ pip install -r requirements.txt
+First of all install python dependencies 
+> $ pip install -r requirements.txt
 
 Then Run the flask server 
-$ python app.py
+> $ python app.py
 
 Project will be running on this server 
-$ Running on http://127.0.0.1:5000
+> $ Running on http://127.0.0.1:5000
 
 # **Bifurcation diagram** 
 
