@@ -10,6 +10,16 @@ Every pixel of and image get key for encryption that's why this algo is so stron
 ## full pipeline of encryption and decryption
 ![](dataSet/Example-of-an-embedded-encryption-scheme-real-time-image-encryption-based-a-chaotic-key.png)
 
+# Run the project 
+First of all install python dependencise 
+$ pip install -r requirements.txt
+
+Then Run the flask server 
+$ python app.py
+
+Project will be running on this server 
+$ Running on http://127.0.0.1:5000
+
 # **Bifurcation diagram** 
 
 a [**bifurcation diagram**](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) the values visited or approached asymptotically (fixed points, [periodic orbits](https://en.m.wikipedia.org/wiki/Periodic_orbit), or [chaotic](https://en.m.wikipedia.org/wiki/Chaos_(mathematics))[attractors](https://en.m.wikipedia.org/wiki/Attractor)) of a system as a function of a [bifurcation parameter](https://en.m.wikipedia.org/wiki/Bifurcation_theory) in the system.
