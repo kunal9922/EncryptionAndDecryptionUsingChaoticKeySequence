@@ -20,6 +20,12 @@ Then Run the flask server
 Project will be running on this server 
 > $ Running on http://127.0.0.1:5000
 
+# To encrypt an original Image
+<img src="dataSet/guiEncrypt.png">
+
+# To Decrypt an Encrypted Image
+<img src="dataSet/guiDecrypt.png">
+
 # **Bifurcation diagram** 
 
 a [**bifurcation diagram**](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) the values visited or approached asymptotically (fixed points, [periodic orbits](https://en.m.wikipedia.org/wiki/Periodic_orbit), or [chaotic](https://en.m.wikipedia.org/wiki/Chaos_(mathematics))[attractors](https://en.m.wikipedia.org/wiki/Attractor)) of a system as a function of a [bifurcation parameter](https://en.m.wikipedia.org/wiki/Bifurcation_theory) in the system.
