@@ -3,6 +3,7 @@ from chaoticKeyGen import KeyGen
 import cv2
 from flask import Flask, request, jsonify, render_template
 import base64
+from bifurcation import BifurcationDiagram
 
 #flask app
 app = Flask(__name__)
@@ -133,6 +134,32 @@ def decrypt():
 
     # Return the decrypted image in Base64 format as a JSON response
     return jsonify({"decryptedImage": decryptedImageBase64})
+@app.route("/bifurcation", methods=["POST"])
+def bifurcation():
+    """
+    Endpoint for generating the bifurcation diagram.
+
+    Request JSON Parameters:
+    - min_r: Minimum value of the r parameter (float)
+    - max_r: Maximum value of the r parameter (float)
+    - step_r: Step size for the r parameter (float)
+    - max_iters: Maximum number of iterations (integer)
+    - skip_iters: Number of iterations to skip (integer)
+
+    Returns:
+    - JSON response containing the x and r coordinates of the bifurcation diagram
+    """
+    min_r = float(request.json["min_r"])
+    max_r = float(request.json["max_r"])
+    step_r = float(request.json["step_r"])
+    max_iterations = int(request.json["max_iters"])
+    skip_iterations = int(request.json["skip_iters"])
+
+    result_x, result_r = BifurcationDiagram.calBifucation(min_r, max_r, step_r, max_iterations, skip_iterations)
+
+    # Return the bifurcation diagram coordinates as a JSON response
+    return jsonify({"result_x": result_x.tolist(), "result_r": result_r.tolist()})
+
 
 #main 
 if __name__ == "__main__":

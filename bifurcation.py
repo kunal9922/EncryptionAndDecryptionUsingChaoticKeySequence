@@ -6,9 +6,19 @@ import matplotlib.pyplot as plt
 
 class BifurcationDiagram:
     def calBifucation(self, **parameters):
-        ''' calculate the bifucation points of x and r coordinates\n
-        parameters are min_r, max_r, step_r, max_iters, skip_iters'''
+        """
+        Calculate the bifurcation points of x and r coordinates.
 
+        Parameters:
+        - min_r: Minimum value of the r parameter (float)
+        - max_r: Maximum value of the r parameter (float)
+        - step_r: Step size for the r parameter (float)
+        - max_iterations: Maximum number of iterations (integer)
+        - skip_iterations: Number of iterations to skip (integer)
+
+        Returns:
+        - Numpy arrays containing the x and r coordinates of the bifurcation diagram
+        """
         min_r = parameters["min_r"]
         max_r = parameters["max_r"]
         step_r = parameters["step_r"]
@@ -35,13 +45,3 @@ class BifurcationDiagram:
         result_r = result_r[result_r != 0].copy()
 
         return result_x, result_r
-
-
-chaosMap = BifurcationDiagram()
-result_x, result_r = chaosMap.calBifucation(
-    min_r=3.0, max_r=4.0, step_r=0.0001, max_iters=1000, skip_iters=100)
-
-# Plot the bifucation diagram
-plt.figure(figsize=(5, 3), dpi=200)
-plt.plot(result_r, result_x, ",", color='k')
-plt.show()
