@@ -30,8 +30,18 @@ document.addEventListener("DOMContentLoaded", function () {
           .then((data) => {
             const encryptedImage = document.getElementById("encryptedImage");
             encryptedImage.innerHTML = `<img src="data:image/jpeg;base64, ${data.encryptedImage}" alt="Encrypted Image">`;
+            
+            // Create a new image element for the bifurcation diagram
+            const bifurcationImage = document.createElement("img");
+            bifurcationImage.src = `data:image/png;base64, ${data.bifurcationImage}`;
+            bifurcationImage.alt = "Bifurcation Diagram";
+
+            // Add the bifurcation diagram image to the bifurcationContainer
+            const bifurcationContainer = document.getElementById("bifurcationDiagram");
+            bifurcationContainer.innerHTML = "";
+            bifurcationContainer.appendChild(bifurcationImage);
           })
-          .catch((error) => console.error(error));
+          .catch(function (error) { console.error(error)});
       };
   
       reader.readAsDataURL(image);

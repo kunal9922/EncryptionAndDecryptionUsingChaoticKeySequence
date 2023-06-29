@@ -19,6 +19,21 @@ body {
     font-size: 18px;
     margin-bottom: 10px;
   }
+
+  #imageContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  #encryptedImage, #bifurcationDiagram {
+    flex: 1;
+  }
+  
+  #headingContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+  
   
   form {
     margin-bottom: 20px;
@@ -78,7 +93,11 @@ body {
   
     input[type="submit"] {
       flex: 0 0 auto;
+      }
     }
-  }
-  
+    @media screen and (max-width: 600px) {
+      body {
+        background-size: contain;
+      }
+    }
   

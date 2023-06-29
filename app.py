@@ -4,6 +4,8 @@ import cv2
 from flask import Flask, request, jsonify, render_template
 import base64
 from bifurcation import BifurcationDiagram
+import matplotlib.pyplot as plt
+from io import BytesIO
 
 #flask app
 app = Flask(__name__)
@@ -103,10 +105,42 @@ def encrypt():
     imgSecure = ChaoticCrypto()
     encryptedImageBase64 = imgSecure.encrypt_img(initCond, controlPara, img)
 
+    bifurcationMap = BifurcationDiagram()
+    bifurcationResultX, bifurcationResultR = bifurcationMap.calBifucation(
+        min_r=3.0, max_r=4.0, step_r=0.0001, max_iters=1000, skip_iters=100
+    )
 
-    # Return the encrypted image in Base64 format as a JSON response
-    return jsonify({"encryptedImage": encryptedImageBase64})
+    # Filter the bifurcation diagram data based on the initial condition and control parameter
+    filteredResultX = bifurcationResultX[
+        (bifurcationResultR >= initCond) & (bifurcationResultR <= controlPara)
+    ]
+    filteredResultR = bifurcationResultR[
+        (bifurcationResultR >= initCond) & (bifurcationResultR <= controlPara)
+    ]
 
+    # Plot the bifurcation diagram using Matplotlib
+    plt.scatter(filteredResultX, filteredResultR, s=1, c="red")
+    plt.xlabel("X")
+    plt.ylabel("R")
+    plt.title("Bifurcation Diagram")
+    plt.tight_layout()
+
+    # Save the bifurcation diagram as an image file
+    img_buffer = BytesIO()
+    plt.savefig(img_buffer, format="png")
+    img_buffer.seek(0)
+    img_buffer_base64 = base64.b64encode(img_buffer.getvalue()).decode("utf-8")
+
+    # Prepare the response data
+    responseData = {
+        "encryptedImage": encryptedImageBase64,
+        "bifurcationImage": img_buffer_base64,
+    }
+    print(type(encryptedImageBase64))
+    print(type(img_buffer_base64))
+
+    # Return the encrypted image and bifurcation diagram data as a JSON response
+    return jsonify(responseData)
 
 #Decryption
 @app.route("/decrypt", methods=["POST"])
@@ -134,6 +168,7 @@ def decrypt():
 
     # Return the decrypted image in Base64 format as a JSON response
     return jsonify({"decryptedImage": decryptedImageBase64})
+
 @app.route("/bifurcation", methods=["POST"])
 def bifurcation():
     """
@@ -163,4 +198,7 @@ def bifurcation():
 
 #main 
 if __name__ == "__main__":
+    app.config['MIME_TYPES'] = {
+    '.js': 'application/javascript'
+}
     app.run(debug=True) 
