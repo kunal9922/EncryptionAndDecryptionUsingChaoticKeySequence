@@ -78,7 +78,11 @@ body {
   
     input[type="submit"] {
       flex: 0 0 auto;
+      }
     }
-  }
-  
+    @media screen and (max-width: 600px) {
+      body {
+        background-size: contain;
+      }
+    }
   
