@@ -3,11 +3,9 @@ from chaoticKeyGen import KeyGen
 import cv2
 from flask import Flask, request, jsonify, render_template
 import base64
-import sys
 from bifurcation import BifurcationDiagram
 import matplotlib.pyplot as plt
 from io import BytesIO
-import threading
 from werkzeug.serving import make_server
 #flask app
 app = Flask(__name__)
@@ -242,15 +240,3 @@ def run_flask_server():
     # app.run(debug=True)
     server = make_server("localhost", 5000, app)
     server.serve_forever()
-
-#main 
-if __name__ == "__main__":
-     # Start the Flask server in a separate thread
-    server_thread = threading.Thread(target=run_flask_server)
-    server_thread.start()
-
-    try:
-        while True:
-            pass
-    except KeyboardInterrupt:
-        sys.exit(0)
