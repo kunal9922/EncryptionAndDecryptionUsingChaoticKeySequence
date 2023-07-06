@@ -4,10 +4,12 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    background-image: url("../images/pexels-matheus-natan.jpg");
+    background-image: url("../images/backgroundImage.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-attachment: fixed;
+    color: white; /* Set text color to white */
   }
   
   h1 {
@@ -100,7 +102,10 @@ body {
     }
     @media screen and (max-width: 600px) {
       body {
-        background-size: contain;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+
       }
     }
   
