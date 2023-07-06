@@ -25,7 +25,10 @@ body {
     align-items: center;
   }
   
-  #encryptedImage, #bifurcationDiagram {
+  #encryptedImage, #bifurcationDiagramEn {
+    flex: 1;
+  }
+  #decryptedImage, #bifurcationDiagramDe {
     flex: 1;
   }
   

@@ -3,10 +3,12 @@ from chaoticKeyGen import KeyGen
 import cv2
 from flask import Flask, request, jsonify, render_template
 import base64
+import sys
 from bifurcation import BifurcationDiagram
 import matplotlib.pyplot as plt
 from io import BytesIO
-
+import threading
+from werkzeug.serving import make_server
 #flask app
 app = Flask(__name__)
 
@@ -166,8 +168,46 @@ def decrypt():
     imgSecure = ChaoticCrypto()
     decryptedImageBase64 = imgSecure.decrypt_img(initCond, controlPara, enimg)
 
-    # Return the decrypted image in Base64 format as a JSON response
-    return jsonify({"decryptedImage": decryptedImageBase64})
+    #Bifurcation For Decrypted Image
+    bifurcationMap = BifurcationDiagram()
+    bifurcationResultX, bifurcationResultR = bifurcationMap.calBifucation(
+        min_r=3.0, max_r=4.0, step_r=0.0001, max_iters=1000, skip_iters=100
+    )
+
+    # Filter the bifurcation diagram data based on the initial condition and control parameter
+    filteredResultX = bifurcationResultX[
+        (bifurcationResultR >= initCond) & (bifurcationResultR <= controlPara)
+    ]
+    filteredResultR = bifurcationResultR[
+        (bifurcationResultR >= initCond) & (bifurcationResultR <= controlPara)
+    ]
+
+    # Plot the bifurcation diagram using Matplotlib
+    plt.scatter(filteredResultX, filteredResultR, s=1, c="red")
+    plt.xlabel("X")
+    plt.ylabel("R")
+    plt.title("Bifurcation Diagram Decrypt")
+    plt.tight_layout()
+
+    # Save the bifurcation diagram as an image file
+    img_buffer = BytesIO()
+    plt.savefig(img_buffer, format="png")
+    img_buffer.seek(0)
+    img_buffer_base64 = base64.b64encode(img_buffer.getvalue()).decode("utf-8")
+
+    # Prepare the response data
+    responseData = {
+        "decryptedImage": decryptedImageBase64,
+        "bifurcationImage": img_buffer_base64,
+    }
+    print(type(decryptedImageBase64))
+    print(type(img_buffer_base64))
+
+    # Return the encrypted image and bifurcation diagram data as a JSON response
+    return jsonify(responseData)
+
+    # # Return the decrypted image in Base64 format as a JSON response
+    # return jsonify({"decryptedImage": decryptedImageBase64})
 
 @app.route("/bifurcation", methods=["POST"])
 def bifurcation():
@@ -195,10 +235,22 @@ def bifurcation():
     # Return the bifurcation diagram coordinates as a JSON response
     return jsonify({"result_x": result_x.tolist(), "result_r": result_r.tolist()})
 
+def run_flask_server():
+    # app.config['MIME_TYPES'] = {
+    # '.js': 'application/javascript'
+    # }
+    # app.run(debug=True)
+    server = make_server("localhost", 5000, app)
+    server.serve_forever()
 
 #main 
 if __name__ == "__main__":
-    app.config['MIME_TYPES'] = {
-    '.js': 'application/javascript'
-}
-    app.run(debug=True) 
+     # Start the Flask server in a separate thread
+    server_thread = threading.Thread(target=run_flask_server)
+    server_thread.start()
+
+    try:
+        while True:
+            pass
+    except KeyboardInterrupt:
+        sys.exit(0)
