@@ -17,14 +17,14 @@ First of all install python dependencies
 Then Run the flask server 
 > $ python app.py
 
-Project will be running on this server 
-> $ Running on http://127.0.0.1:5000
+Project will be running on werkzeug server 
+> $ http://localhost:5000/
 
 # To encrypt an original Image
-<img src="dataSet/guiEncrypt.png">
+<img src="dataSet/UX1.png">
 
 # To Decrypt an Encrypted Image
-<img src="dataSet/guiDecrypt.png">
+<img src="dataSet/UX2.png">
 
 # **Bifurcation diagram** 
 
@@ -43,6 +43,12 @@ Then the results are plotted with each `r` on the x-axis, and `x` on the y-axis,
 * Max_itermations = 1000
 * Skip_itermations = 100
 * Step_r = 0.0001
+
+## References 
+- https://www.wikiwand.com/en/Chaos_theory#Media/File:Double-compound-pendulum.gif
+
+- https://en.wikipedia.org/wiki/Chaotic_cryptology
+
 
 
 
