@@ -48,6 +48,40 @@ body {
     display: block;
     margin-bottom: 5px;
   }
+   /* Styles for the custom submit button */
+.custom-button {
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #4CAF50;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 10px; /* Add some space between buttons */
+}
+
+/* Change the background color on hover */
+.custom-button:hover {
+  background-color: #45a049;
+}
+
+/* Change the background color when the button is active/pressed */
+.custom-button:active {
+  background-color: #3f9142;
+}
+/* Flexbox layout for the buttons container */
+.form-container {
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+  justify-content: center; /* Align items horizontally in the center */
+}
+
+/* Add spacing between the buttons */
+.encrypt-form {
+  margin-right: 10px;
+}
 
   .bifurcation{
     padding: 5px 10px;
