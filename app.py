@@ -1,15 +1,16 @@
 import numpy as np
 from chaoticKeyGen import KeyGen
 import cv2
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, send_file, abort, send_from_directory
 import base64
 from bifurcation import BifurcationDiagram
 import matplotlib.pyplot as plt
 from io import BytesIO
 from werkzeug.serving import make_server
+import os
 #flask app
 app = Flask(__name__)
-
+app.config["DEBUG"] = True
 class ChaoticCrypto:
     ''' encrypt and decrypt image by using Chaos Logistic Map(pseudo Random)'''
 
@@ -34,7 +35,7 @@ class ChaoticCrypto:
                 z += 1
 
         #saving the encrypted image 
-        encrypted_image_path = r"./static/images/encrypted.jpg"
+        encrypted_image_path = r"./static/images/encrypted_image.jpg"
         # Save the encrypted image
         cv2.imwrite(encrypted_image_path, enImg)
 
@@ -206,6 +207,19 @@ def decrypt():
 
     # # Return the decrypted image in Base64 format as a JSON response
     # return jsonify({"decryptedImage": decryptedImageBase64})
+
+# Download encrypted image route
+@app.route("/download_encrypted", methods=["GET"])
+def download_encrypted():
+    encrypted_image_path = r"./static/images/encrypted.jpg"
+    filename = "encrypted_image.jpg"
+    try:
+        return send_from_directory(os.path.dirname(encrypted_image_path), filename, as_attachment=True, mimetype="image/jpeg")
+    except FileNotFoundError:
+        abort(404)  # Return a 404 error if the file is not found
+    except Exception as e:
+        print(f"Error while sending the encrypted image: {e}")
+        abort(500)  # Return a 500 error for any other unexpected errors
 
 @app.route("/bifurcation", methods=["POST"])
 def bifurcation():
