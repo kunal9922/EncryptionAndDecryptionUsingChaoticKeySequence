@@ -16,7 +16,7 @@
         <label for="controlPara">Control Parameter:</label>
         <input type="text" id="controlPara" required><br>
 
-        <label for="image">Image:</label>
+        <label for="image">Original Image:</label>
         <input type="file" id="image" required accept="image/*"><br>
 
         <input type="submit" value="Encrypt" class = "custom-button">
@@ -28,7 +28,7 @@
     <div id="headingContainer">
         <h2>Encrypted Image</h2>
         <h2>Bifurcation Diagram</h2>
-      </div>
+    </div>
       
     <div id="imageContainer">
         <div id="encryptedImage"></div>
@@ -36,19 +36,22 @@
     </div>
 
     <h2>Decrypt Image</h2>
-    <form id="decryptForm">
-        <label for="decryptInitCond">Initial Condition:</label>
-        <input type="text" id="decryptInitCond" required><br>
+    <div class = "form-container">
+        <form id="decryptForm" class="decrypt-form">
+            <label for="decryptInitCond">Initial Condition:</label>
+            <input type="text" id="decryptInitCond" required><br>
 
-        <label for="decryptControlPara">Control Parameter:</label>
-        <input type="text" id="decryptControlPara" required><br>
+            <label for="decryptControlPara">Control Parameter:</label>
+            <input type="text" id="decryptControlPara" required><br>
 
-        <label for="encryptedImageFile">Encrypted Image:</label>
-        <input type="file" id="encryptedImageFile" required accept="image/*"><br>
+            <label for="encryptedImageFile">Encrypted Image:</label>
+            <input type="file" id="encryptedImageFile" required accept="image/*"><br>
 
-        <input type="submit" value="Decrypt" class="custom-button">
-    </form>
-
+            <input type="submit" value="Decrypt" class="custom-button">
+        </form>
+        <!-- Add the download button -->
+        <button id="downloadDecrypted" class="custom-button">Download Decrypted Image</button>
+    </div>
     <div id="headingContainer">
         <h2>Decrypted Image</h2>
         <h2>Bifurcation Diagram</h2>

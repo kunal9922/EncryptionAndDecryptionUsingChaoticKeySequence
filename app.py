@@ -67,7 +67,7 @@ class ChaoticCrypto:
                     decImg[y, x, chnl] = enimg[y, x, chnl] ^ keysList[z]
                 z += 1
         #saving the encrypted image 
-        decrypted_image_path = r"./static/images/decrypted.jpg"
+        decrypted_image_path = r"./static/images/decrypted_image.jpg"
         # Save the encrypted image
         cv2.imwrite(decrypted_image_path, decImg)
         
@@ -211,10 +211,23 @@ def decrypt():
 # Download encrypted image route
 @app.route("/download_encrypted", methods=["GET"])
 def download_encrypted():
-    encrypted_image_path = r"./static/images/encrypted.jpg"
+    encrypted_image_path = r"./static/images/encrypted_image.jpg"
     filename = "encrypted_image.jpg"
     try:
         return send_from_directory(os.path.dirname(encrypted_image_path), filename, as_attachment=True, mimetype="image/jpeg")
+    except FileNotFoundError:
+        abort(404)  # Return a 404 error if the file is not found
+    except Exception as e:
+        print(f"Error while sending the encrypted image: {e}")
+        abort(500)  # Return a 500 error for any other unexpected errors
+
+# Download decrypted image route
+@app.route("/download_decrypted", methods=["GET"])
+def download_decrypted():
+    decrypted_image_path = r"./static/images/decrypted_image.jpg"
+    filename = "decrypted_image.jpg"
+    try:
+        return send_from_directory(os.path.dirname(decrypted_image_path), filename, as_attachment=True, mimetype="image/jpeg")
     except FileNotFoundError:
         abort(404)  # Return a 404 error if the file is not found
     except Exception as e:

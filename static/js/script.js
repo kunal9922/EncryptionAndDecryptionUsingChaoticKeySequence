@@ -130,4 +130,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
     reader.readAsDataURL(encryptedImageFile);
   });
+  // Get the download button element
+  const downloadButtonDe = document.getElementById("downloadDecrypted");
+
+  // Add an event listener to the download button
+  downloadButtonDe.addEventListener("click", async function () {
+    try {
+      // Fetch the encrypted image file from the server
+      const downloadResponse = await fetch("/download_decrypted");
+      const blob = await downloadResponse.blob();
+
+      // Create a URL for the blob data
+      const url = URL.createObjectURL(blob);
+
+      // Create an anchor element with the encrypted image URL
+      const downloadLink = document.createElement("a");
+      downloadLink.href = url;
+      downloadLink.download = "decrypted_image.jpg"; // Set the filename for download
+      downloadLink.style.display = "none";
+
+      // Append the download link to the document body
+      document.body.appendChild(downloadLink);
+
+      // Click the download link to trigger the download
+      downloadLink.click();
+
+      // Remove the download link from the document body
+      document.body.removeChild(downloadLink);
+
+      // Revoke the object URL to free up resources
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error);
+    }
+  });
 });

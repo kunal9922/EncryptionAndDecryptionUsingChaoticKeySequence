@@ -82,6 +82,10 @@ body {
 .encrypt-form {
   margin-right: 10px;
 }
+/* Add spacing between the buttons */
+.decrypt-form {
+  margin-right: 10px;
+}
 
   .bifurcation{
     padding: 5px 10px;
