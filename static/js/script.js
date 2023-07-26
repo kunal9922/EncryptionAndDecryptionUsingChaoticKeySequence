@@ -1,10 +1,26 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+  // Get the loading overlay element
+  const loadingOverlay = document.getElementById("loadingOverlay");
+
+  // Show the loading overlay
+  function showLoadingOverlay() {
+    loadingOverlay.style.display = "flex";
+  }
+
+  // Hide the loading overlay
+  function hideLoadingOverlay() {
+    loadingOverlay.style.display = "none";
+  }
+
   /*This JavaScript code enables the encryption and decryption of 
   images using the provided forms and communicates with the corresponding 
   Flask endpoints on the server side. */
   const encryptForm = document.getElementById("encryptForm");
   encryptForm.addEventListener("submit", async function (event) {
     event.preventDefault();
+
+    showLoadingOverlay(); // Show the loading overlay before starting the encryption process
 
     const initCond = parseFloat(document.getElementById("initCond").value);
     const controlPara = parseFloat(document.getElementById("controlPara").value);
@@ -43,6 +59,8 @@ document.addEventListener("DOMContentLoaded", function () {
         bifurcationContainer.appendChild(bifurcationImage);
       } catch (error) {
         console.error(error);
+      }finally {
+        hideLoadingOverlay(); // Hide the loading overlay after the encryption process is complete
       }
     };
 
@@ -87,6 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const decryptForm = document.getElementById("decryptForm");
   decryptForm.addEventListener("submit", async function (event) {
     event.preventDefault();
+    showLoadingOverlay(); // Show the loading overlay before starting the decryption process
 
     const decryptInitCond = parseFloat(document.getElementById("decryptInitCond").value);
     const decryptControlPara = parseFloat(document.getElementById("decryptControlPara").value);
@@ -125,6 +144,8 @@ document.addEventListener("DOMContentLoaded", function () {
         bifurcationContainer.appendChild(bifurcationImage);
       } catch (error) {
         console.error(error);
+      } finally {
+        hideLoadingOverlay(); // Hide the loading overlay after the decryption process is complete
       }
     };
 
