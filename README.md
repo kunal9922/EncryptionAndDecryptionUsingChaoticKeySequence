@@ -21,10 +21,11 @@ The project will be running on the Werkzeug server
 > $ http://localhost:5000/
 
 # To encrypt an original Image
-<img src="dataSet/UX1.png">
+![chaosSnap1](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/816c1f24-7787-4464-8199-829f360b36cf)
 
 # To Decrypt an Encrypted Image
-<img src="dataSet/UX2.png">
+![chaosSnap2](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/ea441a41-2d21-4cc6-82e9-d829f4e75dd1)
+
 
 # The animation displays the encryption and decryption process as it loads.
 ![chaosLoadingAnimation1](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/f87a70e4-e27f-4281-8ced-674dd60959fb)
