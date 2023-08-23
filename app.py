@@ -17,30 +17,16 @@ class ChaoticCrypto:
     def encrypt_img(self, initCond, controlPara, img):
         ''' encrypt an image by using Chaostic key Sequence and keys complexity is based on \n
         your passing initialCondition and controlParameter '''
-        # Get the image dimensions
-        height, width, ch = img.shape
-        noOfPixels = width * height
-
         keys = KeyGen()
-        keysList = keys.logisticMapKeyGen(initCond, controlPara, noOfPixels)
-
-        # another blank image for store encrypted image
-        z = 0  # for tracking each key in key list
-        enImg = np.zeros(shape=(height, width, 3), dtype=np.uint8)
-
-        for y in range(height):
-            for x in range(width):
-                for chnl in range(ch):
-                    enImg[y, x, chnl] = img[y, x, chnl] ^ keysList[z]
-                z += 1
+        img = keys.logisticMapKeyGen(initCond, controlPara, img)
 
         #saving the encrypted image 
         encrypted_image_path = r"./static/images/encrypted_image.jpg"
         # Save the encrypted image
-        cv2.imwrite(encrypted_image_path, enImg)
+        cv2.imwrite(encrypted_image_path, img)
 
         # Convert encrypted image to base64 for sending as JSON
-        _, encImageBuffer = cv2.imencode(".jpg", enImg)
+        _, encImageBuffer = cv2.imencode(".jpg", img)
         encImageBase64 = base64.b64encode(encImageBuffer).decode("utf-8")
 
         return encImageBase64
@@ -49,30 +35,17 @@ class ChaoticCrypto:
         ''' decryption an image by using Chaostic key Sequence and keys complexity is based on \n
         your passing initialCondition and controlParameter Note what aguments were passed to encryption is always same for decryption \n
         other wise decryption never will possible '''
-        # take the image width and height
-        # Get the image dimensions
-        height, width, ch = enimg.shape
-        noOfPixels = width * height
 
         keys = KeyGen()
-        keysList = keys.logisticMapKeyGen(initCond, controlPara, noOfPixels)
+        enimg = keys.logisticMapKeyGen(initCond, controlPara, enimg)
 
-        # another blank image for store decrypted image
-        z = 0  # for tracking each key in key list
-        decImg = np.zeros(shape=(height, width, 3), dtype=np.uint8)
-
-        for y in range(height):
-            for x in range(width):
-                for chnl in range(ch):
-                    decImg[y, x, chnl] = enimg[y, x, chnl] ^ keysList[z]
-                z += 1
         #saving the encrypted image 
         decrypted_image_path = r"./static/images/decrypted_image.jpg"
         # Save the encrypted image
-        cv2.imwrite(decrypted_image_path, decImg)
+        cv2.imwrite(decrypted_image_path, enimg)
         
         # Convert decrypted image to base64 for sending as JSON
-        _, decImageBuffer = cv2.imencode(".jpg", decImg)
+        _, decImageBuffer = cv2.imencode(".jpg", enimg)
         decImageBase64 = base64.b64encode(decImageBuffer).decode("utf-8")
 
         return decImageBase64
