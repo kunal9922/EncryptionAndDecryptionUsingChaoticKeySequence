@@ -1,24 +1,17 @@
 # Encryption And Decryption Using ChaoticKeySequence
-Using chaotic key sequences, the encryption and decryption project aims to create a secure and robust cryptographic system by leveraging chaos theory. This method of encryption relies on dynamic systems that can generate sequences of numbers with a random-like nature. These numbers are then utilized as keys to modify the pixel values of an image. The implementation of this project involves the use of web technologies.
+## Overview
+This project employs chaotic key sequences for encryption and decryption, enhancing cryptographic security. Chaotic systems generate random-like sequences used as keys to modify pixel values in images. By leveraging chaos theory, this method offers robust encryption.
 
-The basic principle of encryption with chaos is based on the ability of some dynamic systems to produce sequences of numbers that are random in nature. This sequence is used to encrypt an image. For decryption, the sequence of random numbers is highly dependent on the initial condition used for generating this sequence. A very minute deviation in the initial condition will result in a totally different sequence. This sensitivity to initial conditions makes chaotic systems ideal for encryption.
+## Methodology
+* Encryption: Chaotic key sequences modify pixel values in images. These sequences, generated from chaotic systems, provide high unpredictability.
 
-## Explain the process of core key generation of encryption and decryption
-![](dataSet/A-Chaotic-encryption-Scheme.png)
-Every pixel of an image gets many keys for encryption that's why this algorithm is so strong for CryptoGraphy.
+* Decryption: Decrypting uses the same chaotic sequence by replicating initial conditions. Applying reverse operations restores the original image.
 
-## Full pipeline of encryption and decryption
-![](dataSet/Example-of-an-embedded-encryption-scheme-real-time-image-encryption-based-a-chaotic-key.png)
+## Security Advantage
+Chaotic systems' sensitivity to initial conditions makes this encryption formidable. Even tiny deviations lead to vastly different sequences, rendering decryption challenging.
 
-# Run the project 
-First of all, install Python dependencies 
-> $ pip install -r requirements.txt
-
-Then Run the Flask server 
-> $ python app.py
-
-The project will be running on the Werkzeug server 
-> $ http://localhost:5000/
+# Implementation
+Web technologies power this project, ensuring cross-platform accessibility. Harnessing chaos theory, the project showcases the power of chaos for Cryptography.
 
 # To encrypt an original Image
 ![chaosSnap1](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/816c1f24-7787-4464-8199-829f360b36cf)
@@ -33,28 +26,50 @@ The project will be running on the Werkzeug server
 # Responsive Preview
 ![Screenshot 2023-07-26 154142](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/461e8969-f60d-4dc0-ac7c-b82d74ea1faf)
 
-# **Bifurcation diagram** 
-a [**bifurcation diagram**](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) the values visited or approached asymptotically (fixed points, [periodic orbits](https://en.m.wikipedia.org/wiki/Periodic_orbit), or [chaotic](https://en.m.wikipedia.org/wiki/Chaos_(mathematics))[attractors](https://en.m.wikipedia.org/wiki/Attractor)) of a system as a function of a [bifurcation parameter](https://en.m.wikipedia.org/wiki/Bifurcation_theory) in the system.
+## Explain the process of core key generation of encryption and decryption
+![](dataSet/A-Chaotic-encryption-Scheme.png)
+Each pixel of an image gets many keys for encryption which is why this algorithm is so robust for CryptoGraphy.
 
-A [Bifurcation Diagram](https://en.m.wikipedia.org/wiki/Bifurcation_diagram) shows that the stability of a system can be highly dependent on the inputs.
+## Full pipeline of encryption and decryption
+![](dataSet/Example-of-an-embedded-encryption-scheme-real-time-image-encryption-based-a-chaotic-key.png)
 
-It is calculated by looping the following equation, for a number of iterations, and every `r` in a defined range. Then the results are plotted with each `r` on the x-axis, and `x` on the y-axis ![Logistic Map](https://wikimedia.org/api/rest_v1/media/math/render/svg/1d88296028cd6a06bd0007ca050d728e7da7447a)
+# Run the project 
+First of all, install Python dependencies 
+> $ pip install -r requirements.txt
 
-Then the results are plotted with each `r` on the x-axis, and `x` on the y-axis, resulting in the following diagram.
+Then Run the Flask server 
+> $ python app.py
 
+The project will be running on the Werkzeug server 
+> $ http://localhost:5000/
+
+# Bifurcation Diagram
+A bifurcation diagram illustrates the values that a system approaches asymptotically (fixed points, periodic orbits, or chaotic attractors) in relation to a bifurcation parameter within the system.
+
+## Overview
+A Bifurcation Diagram reveals how system stability can significantly rely on input factors.
+
+## Calculation
+The diagram is generated by iterating a given equation over a defined range of r values for a set number of iterations. The equation's results are then plotted, with each r on the x-axis and the corresponding x values on the y-axis.
+
+The logistic map equation is used:
+
+![image](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/4874442b-f78c-4e55-8e2b-b4c24db7ef23)
+
+Logistic Map
+
+Visualization
+The resulting bifurcation diagram provides insights into the system's behavior as r changes, highlighting patterns and shifts in asymptotic values.
+
+Parameters
+Minimum r: 3.0
+Maximum r: 4.0
+Max iterations: 1000
+Skip iterations: 100
+Step r: 0.0001
 ![](./dataSet/bifucationPlot.png)
-
-* Minimum_r = 3.0
-* Maximum_r = 4.0
-* Max_itermations = 1000
-* Skip_itermations = 100
-* Step_r = 0.0001
 
 ## References 
 - https://www.wikiwand.com/en/Chaos_theory#Media/File:Double-compound-pendulum.gif
 
 - https://en.wikipedia.org/wiki/Chaotic_cryptology
-
-
-
-
