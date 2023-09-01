@@ -15,12 +15,107 @@ body {
   h1 {
     font-size: 24px;
     margin-bottom: 20px;
+    text-align: center;
   }
   
   h2 {
     font-size: 18px;
     margin-bottom: 10px;
   }
+/* Add a hover effect to the drop container when hovering over the image */
+.drop-container:hover {
+  border-color: #27ae60; /* Change border color to highlight color */
+  background-color: #8fd88f; /* Change background color to highlight color */
+}
+
+/* Style the drop container */
+.drop-container {
+  border: 2px solid #3498db;
+  padding: 20px;
+  text-align: center;
+  background-color: #e6f0f2;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+/* Style the drop container when it's being dragged over */
+.drop-container.dragover {
+  border-color: #e74c3c;
+  background-color: #f8f9fa;
+}
+
+/* Style the drop container when it's highlighted */
+.drop-container.highlight {
+  border-color: #27ae60;
+  background-color: #8fd88f;
+}
+
+/* Style the drop message */
+.drop-message {
+  font-size: 24px;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+
+.image-preview {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+  .image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+
+.image-container img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.image-container img:hover {
+    transform: scale(1.05);
+}
+
+.image-container p {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #777;
+}
+
+.preview-image {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 5px;
+    margin: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.drop-icon {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.drop-icon img {
+    max-width: 80px; /* Adjust the width of the small icon */
+    max-height: 80px; /* Adjust the height of the small icon */
+}
+#image{
+  font-size: medium;
+  color: #121111;
+}
+#encryptedImageFile{
+  font-size: medium;
+  color: #121111;
+}
 
   #imageContainer {
     display: flex;

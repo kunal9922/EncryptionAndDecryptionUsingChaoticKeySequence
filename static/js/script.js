@@ -1,7 +1,133 @@
 document.addEventListener("DOMContentLoaded", function () {
+// Get the loading overlay element
+const loadingOverlay = document.getElementById("loadingOverlay");
 
-  // Get the loading overlay element
-  const loadingOverlay = document.getElementById("loadingOverlay");
+
+  // Get the encryption and decryption drop containers and file inputs
+  const encryptDropContainer = document.getElementById('encrypt-drop-container'); // Remove the dot before class name
+  const decryptDropContainer = document.getElementById('decrypt-drop-container'); // Remove the dot before class name
+  const encryptFileInput = document.getElementById('image');
+  const decryptFileInput = document.getElementById('encryptedImageFile');
+
+  // Function to handle highlighting of drop containers
+  function highlightDropContainer(dropContainer) {
+    dropContainer.classList.add('highlight');
+  }
+
+  // Function to handle removing highlight from drop containers
+  function unhighlightDropContainer(dropContainer) {
+    dropContainer.classList.remove('highlight');
+  }
+  encryptDropContainer.addEventListener('dragover', (e) => {
+    e.preventDefault();
+  });
+
+  decryptDropContainer.addEventListener('dragover', (e) => {
+    e.preventDefault();
+  });
+
+  encryptDropContainer.addEventListener('drop', (e) => {
+    e.preventDefault();
+    encryptDropContainer.classList.remove('highlight'); // Remove the highlight class
+
+    const files = e.dataTransfer.files;
+    encryptFileInput.files = files;
+    handleFiles(files, "image");
+});
+
+decryptDropContainer.addEventListener('drop', (e) => {
+  e.preventDefault();
+  decryptDropContainer.classList.remove('highlight'); // Remove the highlight class
+
+  const files = e.dataTransfer.files;
+  decryptFileInput.files = files;
+  handleFiles(files, "encryptedImageFile");
+});
+  // // Add event listeners for dragging over the encryption file input
+  // encryptFileInput.addEventListener('dragenter', () => {
+  //   highlightDropContainer(encryptDropContainer);
+  // });
+
+  // encryptFileInput.addEventListener('dragleave', () => {
+  //   unhighlightDropContainer(encryptDropContainer);
+  // });
+
+  // // Add event listeners for dragging over the decryption file input
+  // decryptFileInput.addEventListener('dragenter', () => {
+  //   highlightDropContainer(decryptDropContainer);
+  // });
+
+  // decryptFileInput.addEventListener('dragleave', () => {
+  //   unhighlightDropContainer(decryptDropContainer);
+  // });
+
+  // Prevent default behavior to enable drop
+ 
+  // Handle file input change
+  encryptFileInput.addEventListener('change', (event) => { // Change 'fileInput' to 'encryptFileInput'
+    const files = event.target.files;
+    console.log(event.target.id)
+    handleFiles(files, event.target.id);
+  });
+
+  decryptFileInput.addEventListener('change', (event) => { // Change 'fileInput' to 'decryptFileInput'
+    const files = event.target.files;
+    console.log(event.target.id)
+    handleFiles(files, event.target.id);
+  });
+// Function to remove existing image from a container
+function removeImage(container) {
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+}
+  // Store file names in an array
+  const fileNames = [];
+
+  // Get the image preview element
+  const imagePreviewEn = document.querySelector('#image-preview-en'); // Make sure you have an element with class 'image-preview'
+  const imagePreviewDe = document.querySelector('#image-preview-de'); // Make sure you have an element with class 'image-preview'
+  // Handle dropped or selected files for encryption and decryption
+  function handleFiles(files, targetId) {
+    for (const file of files) {
+      if (file.type.startsWith('image/')) {
+        if (targetId === 'image') {
+          const imgContainerEn = document.createElement('div');
+          imgContainerEn.classList.add('image-container');
+
+          const img = document.createElement('img');
+          img.src = URL.createObjectURL(file);
+          imgContainerEn.appendChild(img);
+
+          const fileNameE = document.createElement('p');
+          fileNameE.textContent = file.name;
+          imgContainerEn.appendChild(fileNameE);
+
+          fileNames.push(file.name); // Store the file name
+          // updateImageFilenamesInput(); // Update the input field with file names
+          removeImage(imagePreviewEn); // Remove existing image, if any
+        imagePreviewEn.appendChild(imgContainerEn);
+
+        } else if (targetId === 'encryptedImageFile') {
+          const imgContainerDe = document.createElement('div');
+        imgContainerDe.classList.add('image-container');
+
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+        imgContainerDe.appendChild(img);
+
+        const fileName = document.createElement('p');
+        fileName.textContent = file.name;
+        imgContainerDe.appendChild(fileName);
+
+        fileNames.push(file.name); // Store the file name
+        // updateImageFilenamesInput(); // Update the input field with file names
+        removeImage(imagePreviewDe); // Remove existing image, if any
+        imagePreviewDe.appendChild(imgContainerDe);
+        }
+      }
+    }
+  }
 
   // Show the loading overlay
   function showLoadingOverlay() {
@@ -100,9 +226,8 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error(error);
       }
     });
-  
-
   const decryptForm = document.getElementById("decryptForm");
+
   decryptForm.addEventListener("submit", async function (event) {
     event.preventDefault();
     showLoadingOverlay(); // Show the loading overlay before starting the decryption process
