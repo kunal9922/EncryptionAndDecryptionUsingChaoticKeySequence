@@ -12,19 +12,20 @@ Chaotic systems' sensitivity to initial conditions makes this encryption formida
 
 # Implementation
 Web technologies power this project, ensuring cross-platform accessibility. Harnessing chaos theory, the project showcases the power of chaos for Cryptography.
+# Drag and Drop the Orignal image
+![Screenshot 2023-09-03 221725 (5)](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/0ce6a445-37bd-455e-8e02-58534eb5ff31) ![Screenshot 2023-09-01 143730](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/3c5f58d6-4d35-47f6-87b6-f90f27533a94)
 
 # To encrypt an original Image
-![chaosSnap1](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/816c1f24-7787-4464-8199-829f360b36cf)
+![Screenshot 2023-09-04 110505](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/d3abfbf8-a3d3-4619-a257-a4758773c04b)
 
 # To Decrypt an Encrypted Image
-![chaosSnap2](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/ea441a41-2d21-4cc6-82e9-d829f4e75dd1)
-
+![Screenshot 2023-09-05 230158](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/af25f356-3d2f-4597-a7e4-cfd4f33415a0)
+![Screenshot 2023-09-05 230203](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/74061fb5-1f3e-49dc-a576-7b444b96df2a)
 
 # The animation displays the encryption and decryption process as it loads.
-![chaosLoadingAnimation1](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/f87a70e4-e27f-4281-8ced-674dd60959fb)
-
+https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/38719f4e-f43f-4141-81f8-d213d6f6dfaa
 # Responsive Preview
-![Screenshot 2023-07-26 154142](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/461e8969-f60d-4dc0-ac7c-b82d74ea1faf)
+![Screenshot 2023-09-03 221602](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/7bc78734-85b4-4950-9615-16d386dbd641)
 
 ## Explain the process of core key generation of encryption and decryption
 ![](dataSet/A-Chaotic-encryption-Scheme.png)
