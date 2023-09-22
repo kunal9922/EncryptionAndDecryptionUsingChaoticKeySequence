@@ -1,11 +1,11 @@
-# Encryption And Decryption Using ChaoticKeySequence
+# Encryption And Decryption Using Chaotic Key Sequence
 ## Overview
 This project employs chaotic key sequences for encryption and decryption, enhancing cryptographic security. Chaotic systems generate random-like sequences used as keys to modify pixel values in images. By leveraging chaos theory, this method offers robust encryption.
 
 ## Methodology
 * Encryption: Chaotic key sequences modify pixel values in images. These sequences, generated from chaotic systems, provide high unpredictability.
 
-* Decryption: Decrypting uses the same chaotic sequence by replicating initial conditions and control parameters. Applying reverse operations restores the original image.
+* Decryption: Decryption uses the same chaotic sequence by replicating initial conditions and control parameters. Applying reverse operations restores the original image.
 
 ## Security Advantage
 Chaotic systems' sensitivity to initial conditions makes this encryption formidable. Even tiny deviations lead to vastly different sequences, rendering decryption challenging.
@@ -24,16 +24,18 @@ The project will be running on the Werkzeug server
 > http://localhost:5000/
 
 ## Drag and Drop the original image
-![Screenshot 2023-09-03 221725 (5)](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/0ce6a445-37bd-455e-8e02-58534eb5ff31)![Screenshot 2023-09-20 152927](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/cb98b692-14b8-41ab-8960-1ad8405a49ea)
+![FirstUI](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/4b08a441-1907-4c24-9960-b509b8d31d65)
+![selectedImageWithoutKeys](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/4ef97bca-b8f1-46e5-83a4-dae56accd67b)
 
-## To encrypt an original Image
-![Screenshot 2023-09-04 110505](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/d3abfbf8-a3d3-4619-a257-a4758773c04b)
+
+## To encrypt an original image, enter the initial condition and control parameter, which act as keys to generate the chaotic key sequence
+![keysInserted](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/2d564fed-a6f4-420d-896b-d7ed13b8b671)
+![encryptedImage](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/919f2ce7-9f02-43ec-a6d5-c68c4e2ce0d1)
 
 ## To Decrypt an Encrypted Image
-![Screenshot 2023-09-05 230158](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/af25f356-3d2f-4597-a7e4-cfd4f33415a0)![Screenshot 2023-09-05 230203](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/74061fb5-1f3e-49dc-a576-7b444b96df2a)
+![dragedEncryptedImage](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/7ae08e7b-5f23-4548-a804-a8f43fe6bc06)
+![decryptedImage](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/92bcb126-6ac5-4f7c-ac58-b85a3183183f)
 
-## The animation displays the encryption and decryption process as it loads.
-https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/38719f4e-f43f-4141-81f8-d213d6f6dfaa
 ## Responsive Preview
 ![Screenshot 2023-09-03 221602](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/7bc78734-85b4-4950-9615-16d386dbd641)
 
