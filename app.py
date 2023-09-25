@@ -8,22 +8,32 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 from werkzeug.serving import make_server
 import os
+import mimetypes
+from flask_ngrok import run_with_ngrok
 #flask app
 app = Flask(__name__)
 app.config["DEBUG"] = True
+
 class ChaoticCrypto:
     ''' encrypt and decrypt image by using Chaos Logistic Map(pseudo Random)'''
 
     def encrypt_img(self, initCond, controlPara, img):
-        ''' encrypt an image by using Chaostic key Sequence and keys complexity is based on \n
+        ''' encrypt an image by using Chaotic key Sequence and keys complexity is based on \n
         your passing initialCondition and controlParameter '''
         keys = KeyGen()
         img = keys.logisticMapKeyGen(initCond, controlPara, img)
 
         #saving the encrypted image 
-        encrypted_image_path = r"./static/images/encrypted_image.jpg"
-        # Save the encrypted image
-        cv2.imwrite(encrypted_image_path, img)
+        encrypted_image_path = r"./static/images/" + enFileName
+        print(encrypted_image_path)
+        imgExt = enFileName.split(".")[-1]
+        # Use the appropriate OpenCV flag for saving images in their original format
+        if imgExt in ("jpg", "jpeg"):
+            cv2.imwrite(encrypted_image_path, img, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
+        elif imgExt == "png":
+            cv2.imwrite(encrypted_image_path, img, [cv2.IMWRITE_PNG_COMPRESSION, 0])
+        # Save the encrypted image with its original file extension
+        #cv2.imwrite(encrypted_image_path, img)
 
         # Convert encrypted image to base64 for sending as JSON
         _, encImageBuffer = cv2.imencode(".jpg", img)
@@ -40,9 +50,16 @@ class ChaoticCrypto:
         enimg = keys.logisticMapKeyGen(initCond, controlPara, enimg)
 
         #saving the encrypted image 
-        decrypted_image_path = r"./static/images/decrypted_image.jpg"
+        decrypted_image_path = r"./static/images/" + deFileName
+        imgExt = deFileName.split(".")[-1]
         # Save the encrypted image
-        cv2.imwrite(decrypted_image_path, enimg)
+        # Use the appropriate OpenCV flag for saving images in their original format
+        if imgExt in ("jpg", "jpeg"):
+            cv2.imwrite(decrypted_image_path, enimg, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
+        elif imgExt == "png":
+            cv2.imwrite(decrypted_image_path, enimg, [cv2.IMWRITE_PNG_COMPRESSION, 0])
+
+        #cv2.imwrite(decrypted_image_path, enimg, [cv2.IMWRITE_PNG_COMPRESSION, 0])
         
         # Convert decrypted image to base64 for sending as JSON
         _, decImageBuffer = cv2.imencode(".jpg", enimg)
@@ -72,9 +89,19 @@ def encrypt():
     initCond = float(request.json["initCond"])
     controlPara = float(request.json["controlPara"])
     imgData = base64.b64decode(request.json["image"])
+    
+    print(request.json["fileName"])
+    fileName = request.json["fileName"].split(".")
+    
+    global enFileName
+    enFileName = f"{fileName[0]}_encrypted.{fileName[1]}"
+    print(enFileName)
+    img = cv2.imdecode(np.frombuffer(imgData, np.uint8), cv2.IMREAD_COLOR)
 
-    nparr = np.frombuffer(imgData, np.uint8)
-    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    # Get the size (width and height) of the image
+    height, width, channels = img.shape
+
+    print(f"Image Size (Width x Height): {width} x {height} = {enFileName}")
 
     imgSecure = ChaoticCrypto()
     encryptedImageBase64 = imgSecure.encrypt_img(initCond, controlPara, img)
@@ -134,9 +161,17 @@ def decrypt():
     controlPara = float(request.json["controlPara"])
     encryptedImageData = base64.b64decode(request.json["encryptedImage"])
 
-    nparr = np.frombuffer(encryptedImageData, np.uint8)
-    enimg = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-
+    # Decode the base64 data and convert it to a NumPy array directly
+    enimg = cv2.imdecode(np.frombuffer(encryptedImageData, np.uint8), cv2.IMREAD_COLOR)
+    
+    print(request.json["fileName"])
+    fileName = request.json["fileName"].split(".")
+    
+    global deFileName
+    deFileName = f"{fileName[0]}_decrypted.{fileName[1]}"
+    print(enFileName)
+    # # Get the size (width and height) of the image
+    # height, width, channels = enimg.shape
     imgSecure = ChaoticCrypto()
     decryptedImageBase64 = imgSecure.decrypt_img(initCond, controlPara, enimg)
 
@@ -178,16 +213,21 @@ def decrypt():
     # Return the encrypted image and bifurcation diagram data as a JSON response
     return jsonify(responseData)
 
-    # # Return the decrypted image in Base64 format as a JSON response
-    # return jsonify({"decryptedImage": decryptedImageBase64})
-
 # Download encrypted image route
 @app.route("/download_encrypted", methods=["GET"])
 def download_encrypted():
-    encrypted_image_path = r"./static/images/encrypted_image.jpg"
-    filename = "encrypted_image.jpg"
+    encrypted_image_path = r"./static/images/"
     try:
-        return send_from_directory(os.path.dirname(encrypted_image_path), filename, as_attachment=True, mimetype="image/jpeg")
+        # Use the mimetypes module to map the extension to a MIME type
+        mimetype, _ = mimetypes.guess_type(enFileName)
+        print(mimetype)
+
+        # Default to "application/octet-stream" if the MIME type cannot be determined
+        if mimetype is None:
+            mimetype = "application/octet-stream"
+
+        # Use the send_from_directory function to send the file
+        return send_from_directory(os.path.dirname(encrypted_image_path), enFileName, as_attachment=True, mimetype=mimetype)
     except FileNotFoundError:
         abort(404)  # Return a 404 error if the file is not found
     except Exception as e:
@@ -197,10 +237,17 @@ def download_encrypted():
 # Download decrypted image route
 @app.route("/download_decrypted", methods=["GET"])
 def download_decrypted():
-    decrypted_image_path = r"./static/images/decrypted_image.jpg"
-    filename = "decrypted_image.jpg"
+    decrypted_image_path = r"./static/images/"
     try:
-        return send_from_directory(os.path.dirname(decrypted_image_path), filename, as_attachment=True, mimetype="image/jpeg")
+        # Use the mimetypes module to map the extension to a MIME type
+        mimetype, _ = mimetypes.guess_type(deFileName)
+        print(mimetype)
+
+        # Default to "application/octet-stream" if the MIME type cannot be determined
+        if mimetype is None:
+            mimetype = "application/octet-stream"
+            
+        return send_from_directory(os.path.dirname(decrypted_image_path), deFileName, as_attachment=True, mimetype=mimetype)
     except FileNotFoundError:
         abort(404)  # Return a 404 error if the file is not found
     except Exception as e:

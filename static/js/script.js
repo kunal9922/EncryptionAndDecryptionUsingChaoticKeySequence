@@ -151,16 +151,23 @@ function removeImage(container) {
     const initCond = parseFloat(document.getElementById("initCond").value);
     const controlPara = parseFloat(document.getElementById("controlPara").value);
     const image = document.getElementById("image").files[0];
+    // Extract the file name from the input element
+    const fileName = image.name;
+    fileNameSliced = null;
+    console.log("filename: " + fileName);
 
     const reader = new FileReader();
     reader.onload = async function (e) {
       const imgData = e.target.result.split(",")[1];
+      // // Extract the file name from the input element
+      // const fileName = image.name;
+
       const requestData = {
         initCond: initCond,
         controlPara: controlPara,
         image: imgData,
+        fileName: fileName, // Include the file name in the JSON object
       };
-
       try {
         const response = await fetch("/encrypt", {
           method: "POST",
@@ -170,9 +177,14 @@ function removeImage(container) {
           body: JSON.stringify(requestData),
         });
         const data = await response.json();
+        fileNameSliced = fileName.split("."); 
+        // Construct the data URI with the correct MIME type (replace "image/png" with the actual MIME type)
+        const dataUri = `data:image/${fileNameSliced[1]};base64, ${data.encryptedImage}`;
 
-        const encryptedImage = document.getElementById("encryptedImage");
-        encryptedImage.innerHTML = `<img src="data:image/jpeg;base64, ${data.encryptedImage}" alt="Encrypted Image">`;
+        // Set the src attribute of the <img> tag
+        encryptedImage.innerHTML = `<img src="${dataUri}" alt="${fileNameSliced[0]+"_encrypted."+fileNameSliced[1]}">`;
+        // const encryptedImage = document.getElementById("encryptedImage");
+        // encryptedImage.innerHTML = `<img src="data:image/jpeg;base64, ${data.encryptedImage}" alt="Encrypted Image">`;
 
         // Create a new image element for the bifurcation diagram
         const bifurcationImage = document.createElement("img");
@@ -208,7 +220,7 @@ function removeImage(container) {
         // Create an anchor element with the encrypted image URL
         const downloadLink = document.createElement("a");
         downloadLink.href = url;
-        downloadLink.download = "encrypted_image.jpg"; // Set the filename for download
+        downloadLink.download = fileNameSliced[0]+"_encrypted."+fileNameSliced[1]; // Set the filename for download
         downloadLink.style.display = "none";
 
         // Append the download link to the document body
@@ -235,6 +247,10 @@ function removeImage(container) {
     const decryptInitCond = parseFloat(document.getElementById("decryptInitCond").value);
     const decryptControlPara = parseFloat(document.getElementById("decryptControlPara").value);
     const encryptedImageFile = document.getElementById("encryptedImageFile").files[0];
+    // Extract the file name from the input element
+    const fileName = encryptedImageFile.name;
+    fileNameSlicedEn = null;
+    console.log("filename: " + fileName);
 
     const reader = new FileReader();
     reader.onload = async function (e) {
@@ -243,6 +259,7 @@ function removeImage(container) {
         initCond: decryptInitCond,
         controlPara: decryptControlPara,
         encryptedImage: encryptedImageData,
+        fileName: fileName, // Include the file name in the JSON object
       };
 
       try {
@@ -256,7 +273,13 @@ function removeImage(container) {
         const data = await response.json();
 
         const decryptedImage = document.getElementById("decryptedImage");
-        decryptedImage.innerHTML = `<img src="data:image/jpeg;base64, ${data.decryptedImage}" alt="Decrypted Image">`;
+        fileNameSlicedEn = fileName.split("."); // Split the fileName into parts
+        
+        // Construct the data URI with the correct MIME type (replace "image/jpeg" with the actual MIME type)
+        const dataUri = `data:image/${fileNameSlicedEn[1]};base64, ${data.decryptedImage}`;
+        
+        // Set the src attribute of the <img> tag
+        decryptedImage.innerHTML = `<img src="${dataUri}" alt="${fileNameSlicedEn[0] + "_decrypted." + fileNameSlicedEn[1]}">`;
 
         // Create a new image element for the bifurcation diagram
         const bifurcationImage = document.createElement("img");
@@ -292,7 +315,7 @@ function removeImage(container) {
       // Create an anchor element with the encrypted image URL
       const downloadLink = document.createElement("a");
       downloadLink.href = url;
-      downloadLink.download = "decrypted_image.jpg"; // Set the filename for download
+      downloadLink.download = fileNameSlicedEn[0]+"_decrypted."+fileNameSlicedEn[1]; // Set the filename for download
       downloadLink.style.display = "none";
 
       // Append the download link to the document body
