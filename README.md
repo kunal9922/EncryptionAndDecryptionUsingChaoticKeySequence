@@ -24,17 +24,23 @@ The project will be running on the Werkzeug server
 > http://localhost:5000/
 
 ## Drag and Drop the original image
-![FirstUI](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/4b08a441-1907-4c24-9960-b509b8d31d65)
-![selectedImageWithoutKeys](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/4ef97bca-b8f1-46e5-83a4-dae56accd67b)
+![FirstUI](https://github.com/kunal9922/EncryptionAndDecryptionUsingChaoticKeySequence/assets/53283003/e950861d-4b15-4f72-8489-0af71eccfd46)
+
+![selectedImageWithoutKeys](https://github.com/kunal9922/EncryptionAndDecryptionUsingChaoticKeySequence/assets/53283003/6a42a633-ca29-4aea-80e1-ecc99e8f2a38)
 
 
 ## To encrypt an original image, enter the initial condition and control parameter, which act as keys to generate the chaotic key sequence
-![keysInserted](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/2d564fed-a6f4-420d-896b-d7ed13b8b671)
-![encryptedImage](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/919f2ce7-9f02-43ec-a6d5-c68c4e2ce0d1)
+![keysInserted](https://github.com/kunal9922/EncryptionAndDecryptionUsingChaoticKeySequence/assets/53283003/c5c9c526-83dc-40a5-a82d-1e365aa7b6ad)
+
+## Encrypted original image
+![encryptedImage](https://github.com/kunal9922/EncryptionAndDecryptionUsingChaoticKeySequence/assets/53283003/3fbb63a5-77b3-4482-9aa2-50024ea15bca)
+
 
 ## To Decrypt an Encrypted Image
-![dragedEncryptedImage](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/7ae08e7b-5f23-4548-a804-a8f43fe6bc06)
-![decryptedImage](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/92bcb126-6ac5-4f7c-ac58-b85a3183183f)
+![dragedEncryptedImage](https://github.com/kunal9922/EncryptionAndDecryptionUsingChaoticKeySequence/assets/53283003/647a6533-6dc5-429d-8eb6-b32f48561c69)
+
+![decryptedImage](https://github.com/kunal9922/EncryptionAndDecryptionUsingChaoticKeySequence/assets/53283003/f3578b1f-8a42-4a1a-8bdc-d63f67954ec7)
+
 
 ## Responsive Preview
 ![Screenshot 2023-09-03 221602](https://github.com/kunal9922/EncryptionandDecryptionusingChaoticKeySequence/assets/53283003/7bc78734-85b4-4950-9615-16d386dbd641)
